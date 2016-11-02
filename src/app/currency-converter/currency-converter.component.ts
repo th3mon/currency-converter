@@ -12,6 +12,9 @@ export class CurrencyConverterComponent implements OnInit {
   ngOnInit() {}
 
   update(changes) {
+    changes = JSON.parse(changes);
+
+    console.log(changes);
     this.updated = changes;
   }
 }

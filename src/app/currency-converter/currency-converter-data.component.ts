@@ -16,6 +16,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   @Input() updateCurrencyValue: number;
   currencyRate: number;
   @Input() mode: string;
+  rates: any;
 
   constructor(private _currencyRateService: CurrencyRatesService) {}
 
@@ -24,23 +25,57 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes) {
-    console.log(changes);
     if (typeof changes === 'string') {
-      this.getRates();
+      // console.log(changes);
+      // this.getRates();
+      // this.onCurrencyValueChange(this.currencyValue, changes);
     }
     else if (changes.updateCurrencyValue) {
-      if (changes.updateCurrencyValue.currentValue !== this.currencyValue) {
-        console.log(changes.updateCurrencyValue.currentValue);
-        console.log(this.currencyValue);
+      let currentValue = changes.updateCurrencyValue.currentValue,
+        currentCurrencyValue = this.parseToNumber(this.currencyValue),
+        code = changes.updateCurrencyValue.currentValue && changes.updateCurrencyValue.currentValue.currencyCode;
+
+      if (currentValue && typeof currentValue === "string") {
+        currentValue = this.parseToNumber(currentValue);
+      }
+      else if (currentValue && typeof currentValue !== 'number') {
+        currentValue = this.parseToNumber(currentValue.value);
+      }
+
+      // if (typeof changes.updateCurrencyValue.currentValue === "object") {}
+      if (currentValue !== currentCurrencyValue) {
+        let rate = this.currencyRate;
+
+        if (rate === 1) {
+          rate = this.getValueFromRate(code);
+        }
 
         if ('from' === this.mode) {
-          this.currencyValue = changes.updateCurrencyValue.currentValue / this.currencyRate;
+          this.currencyValue = currentValue / rate;
         }
         else if ('to' === this.mode) {
-          this.currencyValue = changes.updateCurrencyValue.currentValue * this.currencyRate;
+          this.currencyValue = currentValue * rate;
         }
       }
     }
+  }
+
+  getValueFromRate(code: string) : number {
+    let rate = this.rates.filter((rate) => {
+      return rate.code === code;
+    })[0];
+
+    return rate.value;
+  }
+
+  parseToNumber (value) {
+    let parsedValue = Number(value);
+
+    if (!Number.isNaN(parsedValue)) {
+      return parsedValue;
+    }
+
+    return value
   }
 
   getRates() {
@@ -49,6 +84,12 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
         bid: 1
       }]
     };
+
+    this._currencyRateService.getRates()
+      .subscribe(
+        rates => this.rates = rates,
+        error => this.errorMessage = <any>error
+      );
 
     if ('PLN' === this.currencyCode) {
       this.setCurrencyValue(polishCurrencyRate);
@@ -84,7 +125,16 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     return null;
   }
 
-  onCurrencyValueChange(changes) {
-    this.currencyValueUpdate.emit(changes);
+  onCurrencyValueChange(changes, currencyCode) {
+    let data: string;
+
+    currencyCode = currencyCode ? currencyCode : this.currencyCode;
+
+    data =  JSON.stringify({
+      value: changes,
+      currencyCode
+    });
+
+    this.currencyValueUpdate.emit(data);
   }
 }
