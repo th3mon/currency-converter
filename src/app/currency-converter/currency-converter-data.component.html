@@ -1,5 +1,5 @@
 <div class="form-group">
-  <select class="form-control" [(ngModel)]="currencyCode" (ngModelChange)="ngOnChanges($event)">
+  <select class="form-control" [(ngModel)]="currencyCode" (ngModelChange)="ngOnChanges(currencyCode)">
     <option value="PLN">PLN</option>
     <option value="USD">USD</option>
     <option value="GBP">GBP</option>
@@ -8,5 +8,5 @@
   <label for="amount">
     {{amountLabel | uppercase}}
   </label>
-  <input [(ngModel)]="currencyValue" id="amount" type="text" class="form-control">
+  <input [(ngModel)]="currencyValue" (ngModelChange)="onCurrencyValueChange($event)" id="amount" type="text" class="form-control">
 </div>

@@ -6,8 +6,8 @@
           {{title}}
         </h2>
       </header>
-      <app-currency-converter-data [currencyCode]="'USD'"></app-currency-converter-data>
-      <app-currency-converter-data [currencyCode]="'PLN'"></app-currency-converter-data>
+      <app-currency-converter-data [mode]="'from'" [currencyCode]="'USD'" [updateCurrencyValue]="updated" (currencyValueUpdate)="update($event)"></app-currency-converter-data>
+      <app-currency-converter-data [mode]="'to'" [currencyCode]="'PLN'" [updateCurrencyValue]="updated" (currencyValueUpdate)="update($event)"></app-currency-converter-data>
     </div>
   </div>
 </div>
