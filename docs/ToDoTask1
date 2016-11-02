@@ -1,0 +1,22 @@
+Task #1: Currency Converter
+
+1. Application should provide functionality to convert the given amount of money from one currency to another. Let's assume that currencies that need to be supported are: PLN, USD, GBP, EUR
+
+You can consume any of the public APIs that provide the currency rates data e.g. nbp.pl
+
+2. The technology stack should include:
+- Angular 2 (preferable) or Angular or alternatively you can propose any other "modern" JS framework (like Ember or React) - requires further acceptance
+- TypeScript
+- Bootstrap
+- Gulp
+
+3. Application should include a readme file that includes information how to build application etc.
+
+4. The solution should be provided as a link to public git repo and a link to a demo version hosted on any available server (e.g. https://heroku.com)
+
+5. During implementation, please take into account the following aspects:
+- responsivity
+- minification
+- tests
+
+6. You can find example mock up in the attachment (doesn't have to be pixel perfect)
