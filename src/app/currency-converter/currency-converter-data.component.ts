@@ -41,6 +41,8 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
       if (code && code !== this.currencyCode) {
         this.countValue(currentValue, code);
+      } else if (code && code === this.currencyCode && currentValue !== this.value) {
+        this.countValue(currentValue, code);
       }
     }
   }
