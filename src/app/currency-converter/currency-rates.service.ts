@@ -35,7 +35,7 @@ export class CurrencyRatesService {
 
     return this._http.get(url)
       .map((response: Response) => {
-        return <any> response.json()[0].rates
+        let rates = <any> response.json()[0].rates
           .filter((rate) => regCurrenciesOfInterest.test(rate.code))
           .map((rate) => {
             return {
@@ -43,6 +43,12 @@ export class CurrencyRatesService {
               code: rate.code
             };
           });
+
+        rates.push({
+          value: 1,
+          code: 'PLN'
+        });
+        return rates;
       })
       .do(data => console.log(`${JSON.stringify(data)}`))
       .catch(this.handleError);

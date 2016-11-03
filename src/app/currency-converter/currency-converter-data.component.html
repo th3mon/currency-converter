@@ -1,9 +1,6 @@
 <div class="form-group">
   <select class="form-control" [(ngModel)]="currencyCode" (ngModelChange)="ngOnChanges($event)">
-    <option value="PLN">PLN</option>
-    <option value="USD">USD</option>
-    <option value="GBP">GBP</option>
-    <option value="EUR">EUR</option>
+    <option *ngFor="let rate of rates" [value]="rate.code">{{ rate.code }}</option>
   </select>
   <label for="amount">
     {{amountLabel | uppercase}}

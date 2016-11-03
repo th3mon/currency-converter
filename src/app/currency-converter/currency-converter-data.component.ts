@@ -59,7 +59,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   }
 
   getValueFromRate (code: string): number {
-    return 'PLN' === code ? 1 : this.rates.filter((rate) => {
+    return this.rates.filter((rate) => {
       return rate.code === code;
     })[0].value;
   }
