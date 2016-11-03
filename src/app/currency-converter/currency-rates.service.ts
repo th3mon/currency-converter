@@ -8,14 +8,14 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CurrencyRatesService {
-  private _serviceUrl = 'https://api.nbp.pl/api/exchangerates/rates/C/';
-  private _serviceTablesUrl = 'https://api.nbp.pl/api/exchangerates/tables/C/';
+  private _serviceUrl = '//api.nbp.pl/api/exchangerates/rates/C/';
+  private _serviceTablesUrl = '//api.nbp.pl/api/exchangerates/tables/C/';
   private _jsonFormatParametr = '?format=json';
 
   constructor(private _http: Http) {}
 
   getRate(currencyCode: string): Observable<any> {
-    let url = `${this._serviceUrl}${currencyCode}${this._jsonFormatParametr}`;
+    let url = `${location.protocol}${this._serviceUrl}${currencyCode}${this._jsonFormatParametr}`;
 
     return this._http.get(url)
       .map((response: Response) => {
@@ -30,7 +30,7 @@ export class CurrencyRatesService {
   }
 
   getRates(): Observable<any> {
-    let url = `${this._serviceTablesUrl}`,
+    let url = `${this._serviceTablesUrl}${this._jsonFormatParametr}`,
       regCurrenciesOfInterest = /USD|EUR|PLN|GBP/;
 
     return this._http.get(url)
