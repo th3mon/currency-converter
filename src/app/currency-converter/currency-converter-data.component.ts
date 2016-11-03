@@ -26,9 +26,6 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     if (typeof changes === 'string') {
-      // console.log(changes);
-      // this.getRates();
-      // this.onCurrencyValueChange(this.currencyValue, changes);
     }
     else if (changes.updateCurrencyValue) {
       let currentValue = changes.updateCurrencyValue.currentValue,
@@ -42,30 +39,38 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
         currentValue = this.parseToNumber(currentValue.value);
       }
 
-      // if (typeof changes.updateCurrencyValue.currentValue === "object") {}
-      if (currentValue !== currentCurrencyValue) {
-        let rate = this.currencyRate;
+      if (code && code !== this.currencyCode) {
+        this._currencyRateService.getRates()
+          .subscribe((
+            rates => {
+              this.rates = rates;
 
-        if (rate === 1) {
-          rate = this.getValueFromRate(code);
-        }
+              if('to' === this.mode) {
+                if('PLN' !== this.currencyCode) {
+                  currentValue = currentValue / this.getValueFromRate(this.currencyCode);
+                }
 
-        if ('from' === this.mode) {
-          this.currencyValue = currentValue / rate;
-        }
-        else if ('to' === this.mode) {
-          this.currencyValue = currentValue * rate;
-        }
+                this.currencyValue = currentValue * this.getValueFromRate(code);
+              }
+              else if('from' === this.mode) {
+                if('PLN' !== code) {
+                  currentValue = currentValue * this.getValueFromRate(code);
+                }
+
+                this.currencyValue = currentValue / this.getValueFromRate(this.currencyCode);
+              }
+            }
+          ));
       }
     }
   }
 
   getValueFromRate(code: string) : number {
-    let rate = this.rates.filter((rate) => {
+    let rate = 'PLN' === code ? 1 : this.rates.filter((rate) => {
       return rate.code === code;
-    })[0];
+    })[0].value;
 
-    return rate.value;
+    return rate;
   }
 
   parseToNumber (value) {
