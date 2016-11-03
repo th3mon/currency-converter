@@ -5,5 +5,5 @@
   <label for="amount">
     {{amountLabel | uppercase}}
   </label>
-  <input [(ngModel)]="value" (ngModelChange)="onCurrencyValueChange($event)" id="amount" type="text" class="form-control">
+  <input [(ngModel)]="value" (ngModelChange)="onCurrencyValueChange($event)" id="amount" type="number" class="form-control">
 </div>
