@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
-import { CurrencyRatesService } from './currency-rates.service';
 
 @Component({
   selector: 'app-currency-converter-data',
@@ -14,19 +13,17 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   @Input() currencyCode: string = 'USD';
   @Input() updateCurrencyValue: number;
   @Input() mode: string;
-  rates: any;
+  @Input() rates: any;
 
-  constructor(private _currencyRateService: CurrencyRatesService) {}
-
-  ngOnInit() {
-    this.getRates();
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes) {
+    if (changes.rates && changes.rates.currentValue) {
+      this.countValue(1, 'PLN');
+    }
 
     if (typeof changes === 'string') {
       console.log(changes, this);
-
     }
 
     if (changes.updateCurrencyValue) {
@@ -40,14 +37,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
       }
 
       if (code && code !== this.currencyCode) {
-        if (this.rates) {
-          this.countValue(currentValue, code);
-        } else {
-          this._currencyRateService.getRates()
-            .subscribe((
-              rates => this.countValue(currentValue, code)
-            ));
-          }
+        this.countValue(currentValue, code);
       }
     }
   }
@@ -68,7 +58,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     }
   }
 
-  getValueFromRate (code: string) : number {
+  getValueFromRate (code: string): number {
     return 'PLN' === code ? 1 : this.rates.filter((rate) => {
       return rate.code === code;
     })[0].value;
@@ -81,17 +71,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
       return parsedValue;
     }
 
-    return value
-  }
-
-  getRates() {
-    this._currencyRateService.getRates().subscribe(
-      rates => {
-        this.rates = rates;
-        this.countValue(1, 'PLN');
-      },
-      error => this.errorMessage = <any>error
-    );
+    return value;
   }
 
   onCurrencyValueChange(changes, currencyCode) {
