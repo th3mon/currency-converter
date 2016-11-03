@@ -8,8 +8,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CurrencyRatesService {
-  private _serviceUrl = 'http://api.nbp.pl/api/exchangerates/rates/C/';
-  private _serviceTablesUrl = 'http://api.nbp.pl/api/exchangerates/tables/C/';
+  private _serviceUrl = 'https://api.nbp.pl/api/exchangerates/rates/C/';
+  private _serviceTablesUrl = 'https://api.nbp.pl/api/exchangerates/tables/C/';
   private _jsonFormatParametr = '?format=json';
 
   constructor(private _http: Http) {}
