@@ -15,7 +15,7 @@
 .classpath
 *.launch
 .settings/
-*.sublime-worskspace
+*.sublime-workspace
 *.sublime-project
 
 # misc
