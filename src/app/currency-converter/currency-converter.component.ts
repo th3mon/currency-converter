@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurrencyConverterComponent implements OnInit {
   title: string = 'Currency I Have:';
-  updated: number = 0;
+  updated: any;
 
   ngOnInit() {}
 

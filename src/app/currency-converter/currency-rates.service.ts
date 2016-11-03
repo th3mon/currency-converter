@@ -15,16 +15,22 @@ export class CurrencyRatesService {
   constructor(private _http: Http) {}
 
   getRate(currencyCode: string): Observable<any> {
-    let url: string = `${this._serviceUrl}${currencyCode}${this._jsonFormatParametr}`;
+    let url = `${this._serviceUrl}${currencyCode}${this._jsonFormatParametr}`;
 
     return this._http.get(url)
-      .map((response: Response) => <any> response.json())
-      // .do(data => console.log(`${JSON.stringify(data)}`))
+      .map((response: Response) => {
+        let r = response.json();
+
+        return <any> {
+          value: r.rates[0].bid,
+          code: r.code
+        };
+      })
       .catch(this.handleError);
   }
 
   getRates(): Observable<any> {
-    let url: string = `${this._serviceTablesUrl}`,
+    let url = `${this._serviceTablesUrl}`,
       regCurrenciesOfInterest = /USD|EUR|PLN|GBP/;
 
     return this._http.get(url)
@@ -35,7 +41,7 @@ export class CurrencyRatesService {
             return {
               value: rate.bid,
               code: rate.code
-            }
+            };
           });
       })
       .do(data => console.log(`${JSON.stringify(data)}`))
