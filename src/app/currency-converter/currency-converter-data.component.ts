@@ -23,7 +23,10 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     }
 
     if (typeof changes === 'string') {
-      console.log(changes, this);
+      this.currencyValueUpdate.emit(JSON.stringify({
+        value: this.value,
+        currencyCode: changes
+      }));
     }
 
     if (changes.updateCurrencyValue) {
@@ -75,15 +78,11 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   }
 
   onCurrencyValueChange(changes, currencyCode) {
-    let data: string;
-
     currencyCode = currencyCode ? currencyCode : this.currencyCode;
 
-    data = JSON.stringify({
+    this.currencyValueUpdate.emit(JSON.stringify({
       value: changes,
       currencyCode
-    });
-
-    this.currencyValueUpdate.emit(data);
+    }));
   }
 }
