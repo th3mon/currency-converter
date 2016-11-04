@@ -48,19 +48,27 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   }
 
   countValue (currentValue, code) {
+    let value = currentValue;
+
     if ('to' === this.mode) {
       if ('PLN' !== this.currencyCode) {
-        currentValue = currentValue / this.getValueFromRate(this.currencyCode);
+        value = currentValue / this.getValueFromRate(this.currencyCode);
       }
 
-      this.value = currentValue * this.getValueFromRate(code);
+      value = value * this.getValueFromRate(code);
     } else if ('from' === this.mode) {
       if ('PLN' !== code) {
-        currentValue = currentValue * this.getValueFromRate(code);
+        value = currentValue * this.getValueFromRate(code);
       }
 
-      this.value = currentValue / this.getValueFromRate(this.currencyCode);
+      value = value / this.getValueFromRate(this.currencyCode);
     }
+
+    if (value % 1 !== 0) {
+      value = value.toFixed(3);
+    }
+
+    this.value = value;
   }
 
   getValueFromRate (code: string): number {
