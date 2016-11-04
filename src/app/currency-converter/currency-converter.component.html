@@ -8,7 +8,7 @@
       </header>
       <section class="currency-converter row">
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-          <app-currency-converter-data [rates]="rates" [mode]="'from'" [currencyCode]="'PLN'" [updateCurrencyValue]="updated" (currencyValueUpdate)="update($event)"></app-currency-converter-data>
+          <app-currency-converter-data [master]="true" [rates]="rates" [mode]="'from'" [currencyCode]="master.code"  [value]="master.value" [updateCurrencyValue]="updatedCurrencyValue" (currencyValueUpdate)="updateCurrencyValue($event)"></app-currency-converter-data>
         </div>
         <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
           <div class="center-block">
@@ -23,7 +23,7 @@
             <i class="glyphicon glyphicon-arrow-down"></i>
         </div>
         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-          <app-currency-converter-data [rates]="rates" [mode]="'to'" [currencyCode]="'USD'" [updateCurrencyValue]="updated" (currencyValueUpdate)="update($event)"></app-currency-converter-data>
+          <app-currency-converter-data [rates]="rates" [mode]="'to'" [currencyCode]="slave.code"  [value]="slave.value" [updateCurrencyValue]="updatedCurrencyValue" (currencyValueUpdate)="updateCurrencyValue($event)" (currencyCodeChange)="onCurrencyCodeUpdateSlave($event)"></app-currency-converter-data>
         </div>
       </section>
     </div>

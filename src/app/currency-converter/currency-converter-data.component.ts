@@ -10,10 +10,12 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   errorMessage: string;
   @Input() value: number;
   @Output() currencyValueUpdate: EventEmitter<string> = new EventEmitter<string>();
+  @Output() currencyCodeChange: EventEmitter<string> = new EventEmitter<string>();
   @Input() currencyCode: string = 'USD';
   @Input() updateCurrencyValue: number;
   @Input() mode: string;
   @Input() rates: any;
+  @Input() master;
 
   ngOnInit() {}
 
@@ -23,10 +25,10 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     }
 
     if (typeof changes === 'string') {
-      this.currencyValueUpdate.emit(JSON.stringify({
-        value: this.value,
-        currencyCode: changes
-      }));
+      // this.currencyValueUpdate.emit(JSON.stringify({
+      //   value: this.parseToNumber(this.value),
+      //   currencyCode: changes
+      // }));
     }
 
     if (changes.updateCurrencyValue) {
@@ -39,12 +41,23 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
         code = changes.updateCurrencyValue.currentValue.currencyCode;
       }
 
-      if (code && code !== this.currencyCode) {
-        this.countValue(currentValue, code);
-      } else if (code && code === this.currencyCode && currentValue !== this.value) {
+      // if (code && code !== this.currencyCode && this.master) {
+      //   this.countValue(currentValue, code);
+      // } else if (code && code === this.currencyCode && currentValue !== this.value) {
+      //   this.countValue(currentValue, code);
+      // }
+      if (currentValue && code) {
         this.countValue(currentValue, code);
       }
     }
+  }
+
+  onCurrencyCodeChange(changes) {
+    this.currencyCodeChange.emit(JSON.stringify({
+      value: this.parseToNumber(this.value),
+      currencyCode: changes,
+      master: this.master
+    }));
   }
 
   countValue (currentValue, code) {
@@ -92,7 +105,8 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
     this.currencyValueUpdate.emit(JSON.stringify({
       value: changes,
-      currencyCode
+      currencyCode,
+      master: this.master
     }));
   }
 }
