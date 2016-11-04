@@ -56,7 +56,7 @@ export class CurrencyConverterComponent implements OnInit {
         value: changes.value
       };
 
-    } else {
+    } else if (changes.slave) {
       this.slave = {
         code: changes.currencyCode,
         value: changes.value
@@ -67,10 +67,13 @@ export class CurrencyConverterComponent implements OnInit {
   }
 
   onCurrencyCodeUpdateSlave(changes) {
-    console.log(changes);
     this.updateCurrencyValue(JSON.stringify({
       currencyCode: this.master.code,
       value: this.master.value
-    }))
+    }));
+  }
+
+  onCurrencyCodeUpdateMaster(changes) {
+    this.updateCurrencyValue(changes);
   }
 }

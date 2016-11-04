@@ -1,5 +1,4 @@
 <div class="form-group">
-  <!-- <select class="form-control" [(ngModel)]="currencyCode" (ngModelChange)="ngOnChanges($event)"> -->
   <select class="form-control" [(ngModel)]="currencyCode" (ngModelChange)="onCurrencyCodeChange($event)">
     <option *ngFor="let rate of rates" [value]="rate.code">{{ rate.label }}</option>
   </select>

@@ -24,13 +24,6 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
       this.countValue(1, 'PLN');
     }
 
-    if (typeof changes === 'string') {
-      // this.currencyValueUpdate.emit(JSON.stringify({
-      //   value: this.parseToNumber(this.value),
-      //   currencyCode: changes
-      // }));
-    }
-
     if (changes.updateCurrencyValue) {
       let
         currentValue: number,
@@ -41,12 +34,9 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
         code = changes.updateCurrencyValue.currentValue.currencyCode;
       }
 
-      // if (code && code !== this.currencyCode && this.master) {
-      //   this.countValue(currentValue, code);
-      // } else if (code && code === this.currencyCode && currentValue !== this.value) {
-      //   this.countValue(currentValue, code);
-      // }
-      if (currentValue && code) {
+      if (code && code !== this.currencyCode) {
+        this.countValue(currentValue, code);
+      } else if (code && code === this.currencyCode && currentValue !== this.value) {
         this.countValue(currentValue, code);
       }
     }
