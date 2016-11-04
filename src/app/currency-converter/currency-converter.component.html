@@ -6,14 +6,30 @@
           {{title}}
         </h2>
       </header>
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <section class="currency-converter row">
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
           <app-currency-converter-data [rates]="rates" [mode]="'from'" [currencyCode]="'PLN'" [updateCurrencyValue]="updated" (currencyValueUpdate)="update($event)"></app-currency-converter-data>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
+          <div class="center-block">
+            <i class="glyphicon glyphicon-arrow-left"></i>
+          </div>
+          <div class="center-block">
+            <i class="glyphicon glyphicon-arrow-right"></i>
+          </div>
+        </div>
+        <div class="icons hidden-lg hidden-md hidden-sm col-xs-12">
+          <!-- <div class="center-block"> -->
+            <i class="glyphicon glyphicon-arrow-up"></i>
+          <!-- </div> -->
+          <!-- <div class="center-block"> -->
+            <i class="glyphicon glyphicon-arrow-down"></i>
+          <!-- </div> -->
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
           <app-currency-converter-data [rates]="rates" [mode]="'to'" [currencyCode]="'USD'" [updateCurrencyValue]="updated" (currencyValueUpdate)="update($event)"></app-currency-converter-data>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </div>

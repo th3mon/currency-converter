@@ -1,0 +1,17 @@
+.icons {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 7px;
+}
+
+@media (min-width: 970px) {
+  .icons {
+    margin-bottom: auto;
+  }
+
+  .currency-converter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
