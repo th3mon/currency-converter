@@ -23,7 +23,8 @@ export class CurrencyRatesService {
 
         return <any> {
           value: r.rates[0].bid,
-          code: r.code
+          code: r.code,
+          label: r.currency
         };
       })
       .catch(this.handleError);
@@ -40,13 +41,15 @@ export class CurrencyRatesService {
           .map((rate) => {
             return {
               value: rate.bid,
-              code: rate.code
+              code: rate.code,
+              label: rate.currency
             };
           });
 
         rates.push({
           value: 1,
-          code: 'PLN'
+          code: 'PLN',
+          label: 'polski złoty'
         });
         return rates;
       })
