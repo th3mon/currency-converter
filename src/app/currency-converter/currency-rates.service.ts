@@ -11,6 +11,12 @@ export class CurrencyRatesService {
   private _serviceUrl = '//api.nbp.pl/api/exchangerates/rates/C/';
   private _serviceTablesUrl = '//api.nbp.pl/api/exchangerates/tables/C/';
   private _jsonFormatParametr = '?format=json';
+  private _translate = {
+    USD: 'US Dollar',
+    EUR: 'Euro',
+    GBP: 'Pound Sterling',
+    PLN: 'Zloty'
+  };
 
   constructor(private _http: Http) {}
 
@@ -42,14 +48,14 @@ export class CurrencyRatesService {
             return {
               value: rate.bid,
               code: rate.code,
-              label: rate.currency
+              label: this._translate[rate.code]
             };
           });
 
         rates.push({
           value: 1,
           code: 'PLN',
-          label: 'polski złoty'
+          label: this._translate.PLN
         });
         return rates;
       })
