@@ -1,9 +1,9 @@
-<div class="form-group">
-  <select class="form-control" [(ngModel)]="currencyCode" (ngModelChange)="onCurrencyCodeChange($event)">
-    <option *ngFor="let rate of rates" [value]="rate.code">{{ rate.label }}</option>
+<div class="form-group currency-converter__data">
+  <select class="form-control currency-converter__data-dropdown" [(ngModel)]="currencyCode" (ngModelChange)="onCurrencyCodeChange($event)">
+    <option class="currency-converter__data-dropdown-item" *ngFor="let rate of rates" [value]="rate.code">{{ rate.label }}</option>
   </select>
-  <label for="amount">
+  <label class="currency-converter__data-label" for="amount">
     {{amountLabel | uppercase}}
   </label>
-  <input [(ngModel)]="value" (ngModelChange)="onCurrencyValueChange($event)" id="amount" type="number" class="form-control">
+  <input class="form-control currency-converter__data-input" [(ngModel)]="value" (ngModelChange)="onCurrencyValueChange($event)" id="amount" type="number">
 </div>

@@ -27,4 +27,11 @@ describe('CurrencyConverterDataComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render label in a .currency-converter__data-label element', async(() => {
+    let compiled = fixture.debugElement.nativeElement;
+
+    expect(compiled.querySelector('.currency-converter__data-label').textContent)
+      .toContain(component.amountLabel.toLocaleUpperCase());
+  }));
 });
