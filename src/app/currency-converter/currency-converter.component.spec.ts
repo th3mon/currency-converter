@@ -12,6 +12,19 @@ import { CurrencyConverterDataComponent } from './currency-converter-data.compon
 describe('CurrencyConverterComponent', () => {
   let component: CurrencyConverterComponent;
   let fixture: ComponentFixture<CurrencyConverterComponent>;
+  let ratesMock = [{
+    code: 'PLN',
+    value: 1
+  }, {
+    code: 'USD',
+    value: 0.259
+  }, {
+    code: 'EUR',
+    value: 0.233
+  }, {
+    code: 'GBP',
+    value: 0.208
+  }];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,5 +51,39 @@ describe('CurrencyConverterComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('getRateValue', () => {
+    beforeEach(() => {
+      component.rates = ratesMock;
+    });
+
+    afterEach(() => {
+      component.rates = null;
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getRateValue('PLN')).toBe(ratesMock[0].value);
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getRateValue('USD')).toBe(ratesMock[1].value);
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getRateValue('EUR')).toBe(ratesMock[2].value);
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getRateValue('GBP')).toBe(ratesMock[3].value);
+    });
+
+    it('should return falsy when empty string given', function() {
+      expect(component.getRateValue('')).toBeFalsy();
+    });
+
+    it('should return falsy when null given', function() {
+      expect(component.getRateValue(null)).toBeFalsy();
+    });
   });
 });

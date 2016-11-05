@@ -28,7 +28,7 @@ export class CurrencyConverterComponent implements OnInit {
     this.getRates();
   }
 
-  getRates() {
+  getRates () {
     this._currencyRateService.getRates().subscribe(
       rates => this.rates = rates,
       error => this.errorMessage = <any>error,
@@ -36,18 +36,26 @@ export class CurrencyConverterComponent implements OnInit {
     );
   }
 
-  setDefaults() {
-    this.slave.value = this.getValueFromRate(this.slave.code);
+  setDefaults () {
+    this.slave.value = this.getRateValue(this.slave.code);
   }
 
+  getRateValue (code: string): number {
+    let
+      filteredRates: [any] = this.rates.filter((rate) => {
+        return rate.code === code;
+      }),
 
-  getValueFromRate (code: string): number {
-    return this.rates.filter((rate) => {
-      return rate.code === code;
-    })[0].value;
+      value: number;
+
+    if (filteredRates.length) {
+      value = filteredRates[0].value;
+    }
+
+    return value;
   }
 
-  updateCurrencyValue(changes) {
+  updateCurrencyValue (changes) {
     changes = JSON.parse(changes);
 
     if (changes.master) {
@@ -66,14 +74,14 @@ export class CurrencyConverterComponent implements OnInit {
     this.updatedCurrencyValue = changes;
   }
 
-  onCurrencyCodeUpdateSlave(changes) {
+  onCurrencyCodeUpdateSlave (changes) {
     this.updateCurrencyValue(JSON.stringify({
       currencyCode: this.master.code,
       value: this.master.value
     }));
   }
 
-  onCurrencyCodeUpdateMaster(changes) {
+  onCurrencyCodeUpdateMaster (changes) {
     this.updateCurrencyValue(changes);
   }
 }
