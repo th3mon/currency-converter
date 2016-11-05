@@ -86,4 +86,43 @@ describe('CurrencyConverterComponent', () => {
       expect(component.getRateValue(null)).toBeFalsy();
     });
   });
+
+  describe('convert', () => {
+    beforeEach(() => {
+      component.rates = ratesMock;
+    });
+
+    afterEach(() => {
+      component.rates = null;
+    });
+
+    it('should not convert if currencies are same', function() {
+      let
+        from = {
+          code: 'PLN',
+          value: 10
+        },
+
+        rateValue: number = component.getRateValue(from.code);
+
+      expect(component.convert(from, rateValue)).toBe(from.value);
+    });
+
+    it('should convert value', function() {
+      let
+        from = {
+          code: 'PLN',
+          value: 10
+        },
+
+        value: number;
+
+      ratesMock.forEach((rate) => {
+        value = from.value / rate.value;
+        value *= component.getRateValue(from.code);
+
+        expect(component.convert(from, rate.value)).toBe(value);
+      });
+    });
+  });
 });

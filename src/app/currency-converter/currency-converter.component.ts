@@ -28,6 +28,15 @@ export class CurrencyConverterComponent implements OnInit {
     this.getRates();
   }
 
+  convert (from: any, rateValue: number) : number {
+    let value: number;
+
+    value = from.value / rateValue;
+    value *= this.getRateValue(from.code);
+
+    return value;
+  }
+
   getRates () {
     this._currencyRateService.getRates().subscribe(
       rates => this.rates = rates,
