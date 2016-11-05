@@ -86,9 +86,18 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   }
 
   getRateValue (code: string): number {
-    return this.rates.filter((rate) => {
-      return rate.code === code;
-    })[0].value;
+    let
+      filteredRates: [any] = this.rates.filter((rate) => {
+        return rate.code === code;
+      }),
+
+      value: number;
+
+    if (filteredRates.length) {
+      value = filteredRates[0].value;
+    }
+
+    return value;
   }
 
   onCurrencyValueChange(changes, currencyCode) {

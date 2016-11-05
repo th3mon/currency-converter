@@ -152,5 +152,13 @@ describe('CurrencyConverterDataComponent', () => {
     it('should return PLN rate value', function() {
       expect(component.getRateValue('GBP')).toBe(ratesMock[3].value);
     });
+
+    it('should return falsy when empty string given', function() {
+      expect(component.getRateValue('')).toBeFalsy();
+    });
+
+    it('should return falsy when null given', function() {
+      expect(component.getRateValue(null)).toBeFalsy();
+    });
   });
 });
