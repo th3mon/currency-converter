@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { CurrencyConverterCommon } from './currency-converter-common/currency-converter-common';
 
 @Component({
   selector: 'app-currency-converter-data',
@@ -30,7 +31,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
         code: string;
 
       if (changes.updateCurrencyValue.currentValue) {
-        currentValue = this.parseToNumber(changes.updateCurrencyValue.currentValue.value);
+        currentValue = CurrencyConverterCommon.parseToNumber(changes.updateCurrencyValue.currentValue.value);
         code = changes.updateCurrencyValue.currentValue.currencyCode;
       }
 
@@ -44,7 +45,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
   onCurrencyCodeChange(changes) {
     this.currencyCodeChange.emit(JSON.stringify({
-      value: this.parseToNumber(this.value),
+      value: this.value,
       currencyCode: changes,
       master: this.master
     }));
@@ -78,16 +79,6 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     return this.rates.filter((rate) => {
       return rate.code === code;
     })[0].value;
-  }
-
-  parseToNumber (value) {
-    let parsedValue = Number(value);
-
-    if (!Number.isNaN(parsedValue)) {
-      return parsedValue;
-    }
-
-    return value;
   }
 
   onCurrencyValueChange(changes, currencyCode) {
