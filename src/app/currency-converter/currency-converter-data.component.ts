@@ -70,22 +70,22 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   convert (value: number, code: string) : number {
     if ('from' === this.mode) {
       if (this.BASE_CODE !== code) {
-        value *= this.getValueFromRate(code);
+        value *= this.getRateValue(code);
       }
 
-      value = value / this.getValueFromRate(this.currencyCode);
+      value = value / this.getRateValue(this.currencyCode);
     } else if ('to' === this.mode) {
       if (this.BASE_CODE !== this.currencyCode) {
-        value /= this.getValueFromRate(this.currencyCode);
+        value /= this.getRateValue(this.currencyCode);
       }
 
-      value = value * this.getValueFromRate(code);
+      value = value * this.getRateValue(code);
     }
 
     return value;
   }
 
-  getValueFromRate (code: string): number {
+  getRateValue (code: string): number {
     return this.rates.filter((rate) => {
       return rate.code === code;
     })[0].value;

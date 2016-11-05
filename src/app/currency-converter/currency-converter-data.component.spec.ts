@@ -89,8 +89,8 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        value = givenValue / component.getValueFromRate(component.currencyCode);
-        value *= component.getValueFromRate(rate.code);
+        value = givenValue / component.getRateValue(component.currencyCode);
+        value *= component.getRateValue(rate.code);
 
         expect(component.convert(givenValue, rate.code)).toBe(value);
       });
@@ -105,7 +105,7 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        value = givenValue * component.getValueFromRate(rate.code);
+        value = givenValue * component.getRateValue(rate.code);
 
         expect(component.convert(givenValue, rate.code)).toBe(value);
       });
@@ -120,15 +120,15 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        value = givenValue * component.getValueFromRate(rate.code);
-        value /= component.getValueFromRate(component.currencyCode);
+        value = givenValue * component.getRateValue(rate.code);
+        value /= component.getRateValue(component.currencyCode);
 
         expect(component.convert(givenValue, rate.code)).toBe(value);
       });
     });
   });
 
-  describe('getValueFromRate', () => {
+  describe('getRateValue', () => {
     beforeEach(() => {
       component.rates = ratesMock;
     });
@@ -138,19 +138,19 @@ describe('CurrencyConverterDataComponent', () => {
     });
 
     it('should return PLN rate value', function() {
-      expect(component.getValueFromRate('PLN')).toBe(ratesMock[0].value);
+      expect(component.getRateValue('PLN')).toBe(ratesMock[0].value);
     });
 
     it('should return PLN rate value', function() {
-      expect(component.getValueFromRate('USD')).toBe(ratesMock[1].value);
+      expect(component.getRateValue('USD')).toBe(ratesMock[1].value);
     });
 
     it('should return PLN rate value', function() {
-      expect(component.getValueFromRate('EUR')).toBe(ratesMock[2].value);
+      expect(component.getRateValue('EUR')).toBe(ratesMock[2].value);
     });
 
     it('should return PLN rate value', function() {
-      expect(component.getValueFromRate('GBP')).toBe(ratesMock[3].value);
+      expect(component.getRateValue('GBP')).toBe(ratesMock[3].value);
     });
   });
 });
