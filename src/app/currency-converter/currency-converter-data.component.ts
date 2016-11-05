@@ -68,7 +68,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
       value = value / this.getValueFromRate(this.currencyCode);
     }
 
-    if (value % 1 !== 0) {
+    if (CurrencyConverterCommon.isFloat(value)) {
       value = value.toFixed(3);
     }
 

@@ -8,4 +8,8 @@ export class CurrencyConverterCommon {
 
     return value;
   }
+
+  static isFloat (value: number) : boolean {
+    return value % 1 !== 0;
+  }
 }
