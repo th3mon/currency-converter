@@ -14,15 +14,21 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
   @Output() currencyCodeChange: EventEmitter<string> = new EventEmitter<string>();
   @Input() currencyCode: string = 'USD';
   @Input() updateCurrencyValue: number;
-  @Input() mode: string;
+  @Input() mode: string = 'from';
   @Input() rates: any;
   @Input() master;
 
   ngOnInit() {}
 
   ngOnChanges(changes) {
+    let value: any;
+
+    if (changes.value) {
+      value = changes.value.currentValue;
+    }
+
     if (changes.rates && changes.rates.currentValue) {
-      this.convert(1, 'PLN');
+      value = this.convert(1, 'PLN');
     }
 
     if (changes.updateCurrencyValue) {
@@ -36,10 +42,18 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
       }
 
       if (code && code !== this.currencyCode) {
-        this.convert(currentValue, code);
+        value = this.convert(currentValue, code);
       } else if (code && code === this.currencyCode && currentValue !== this.value) {
-        this.convert(currentValue, code);
+        value = this.convert(currentValue, code);
+      } else if (typeof currentValue === "number") {
+        value = currentValue;
       }
+
+      if (CurrencyConverterCommon.isFloat(value)) {
+        value = value.toFixed(3);
+      }
+
+      this.value = value;
     }
   }
 
@@ -51,28 +65,22 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     }));
   }
 
-  convert (currentValue, code) {
-    let value = currentValue;
-
-    if ('to' === this.mode) {
-      if ('PLN' !== this.currencyCode) {
-        value = currentValue / this.getValueFromRate(this.currencyCode);
-      }
-
-      value = value * this.getValueFromRate(code);
-    } else if ('from' === this.mode) {
+  convert (value: number, code: string) : number {
+    if ('from' === this.mode) {
       if ('PLN' !== code) {
-        value = currentValue * this.getValueFromRate(code);
+        value *= this.getValueFromRate(code);
       }
 
       value = value / this.getValueFromRate(this.currencyCode);
+    } else if ('to' === this.mode) {
+      if ('PLN' !== this.currencyCode) {
+        value /= this.getValueFromRate(this.currencyCode);
+      }
+
+      value = value * this.getValueFromRate(code);
     }
 
-    if (CurrencyConverterCommon.isFloat(value)) {
-      value = value.toFixed(3);
-    }
-
-    this.value = value;
+    return value;
   }
 
   getValueFromRate (code: string): number {

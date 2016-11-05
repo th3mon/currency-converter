@@ -66,9 +66,7 @@ describe('CurrencyConverterDataComponent', () => {
       component.mode = 'to';
       component.currencyCode = 'PLN';
 
-      component.convert(currentValue, code);
-
-      expect(component.value).toBe(currentValue);
+      expect(component.convert(currentValue, code)).toBe(currentValue);
     });
 
     it('should not convert if currencies are same in from mode', function() {
@@ -79,9 +77,7 @@ describe('CurrencyConverterDataComponent', () => {
       component.mode = 'from';
       component.currencyCode = 'PLN';
 
-      component.convert(currentValue, code);
-
-      expect(component.value).toBe(currentValue);
+      expect(component.convert(currentValue, code)).toBe(currentValue);
     });
 
     it('should convert value to mode', function() {
@@ -93,15 +89,10 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        component.convert(givenValue, rate.code);
         value = givenValue / component.getValueFromRate(component.currencyCode);
         value *= component.getValueFromRate(rate.code);
 
-        if (CurrencyConverterCommon.isFloat(value)) {
-          value = value.toFixed(3);
-        }
-
-        expect(component.value).toBe(value);
+        expect(component.convert(givenValue, rate.code)).toBe(value);
       });
     });
 
@@ -114,14 +105,9 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        component.convert(givenValue, rate.code);
         value = givenValue * component.getValueFromRate(rate.code);
 
-        if (CurrencyConverterCommon.isFloat(value)) {
-          value = value.toFixed(3);
-        }
-
-        expect(component.value).toBe(value);
+        expect(component.convert(givenValue, rate.code)).toBe(value);
       });
     });
 
@@ -134,15 +120,10 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        component.convert(givenValue, rate.code);
         value = givenValue * component.getValueFromRate(rate.code);
         value /= component.getValueFromRate(component.currencyCode);
 
-        if(CurrencyConverterCommon.isFloat(value)) {
-          value = value.toFixed(3);
-        }
-
-        expect(component.value).toBe(value);
+        expect(component.convert(givenValue, rate.code)).toBe(value);
       });
     });
   });
