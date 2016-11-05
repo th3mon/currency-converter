@@ -12,4 +12,8 @@ export class CurrencyConverterCommon {
   static isFloat (value: number) : boolean {
     return value % 1 !== 0;
   }
+
+  static isNumber (value: any) : boolean {
+    return typeof value === 'number';
+  }
 }

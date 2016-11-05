@@ -47,7 +47,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
         value = this.convert(currentValue, code);
       } else if (code && code === this.currencyCode && currentValue !== this.value) {
         value = this.convert(currentValue, code);
-      } else if (typeof currentValue === "number") {
+      } else if (CurrencyConverterCommon.isNumber(currentValue)) {
         value = currentValue;
       }
 

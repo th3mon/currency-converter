@@ -26,5 +26,13 @@ describe('CurrencyConverterCommon', () => {
     it('should test float negatively', function() {
       expect(CurrencyConverterCommon.isFloat(5)).toBeFalsy();
     });
+
+    it('should test number positively', function() {
+      expect(CurrencyConverterCommon.isNumber(5)).toBeTruthy();
+    });
+
+    it('should test number negatively', function() {
+      expect(CurrencyConverterCommon.isNumber(null)).toBeFalsy();
+    });
   });
 });
