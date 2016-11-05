@@ -22,7 +22,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     if (changes.rates && changes.rates.currentValue) {
-      this.countValue(1, 'PLN');
+      this.convert(1, 'PLN');
     }
 
     if (changes.updateCurrencyValue) {
@@ -36,9 +36,9 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
       }
 
       if (code && code !== this.currencyCode) {
-        this.countValue(currentValue, code);
+        this.convert(currentValue, code);
       } else if (code && code === this.currencyCode && currentValue !== this.value) {
-        this.countValue(currentValue, code);
+        this.convert(currentValue, code);
       }
     }
   }
@@ -51,7 +51,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     }));
   }
 
-  countValue (currentValue, code) {
+  convert (currentValue, code) {
     let value = currentValue;
 
     if ('to' === this.mode) {

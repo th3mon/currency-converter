@@ -49,7 +49,7 @@ describe('CurrencyConverterDataComponent', () => {
       .toContain(component.amountLabel.toLocaleUpperCase());
   }));
 
-  describe('countValue', () => {
+  describe('convert', () => {
     beforeEach(() => {
       component.rates = ratesMock;
     });
@@ -66,7 +66,7 @@ describe('CurrencyConverterDataComponent', () => {
       component.mode = 'to';
       component.currencyCode = 'PLN';
 
-      component.countValue(currentValue, code);
+      component.convert(currentValue, code);
 
       expect(component.value).toBe(currentValue);
     });
@@ -79,7 +79,7 @@ describe('CurrencyConverterDataComponent', () => {
       component.mode = 'from';
       component.currencyCode = 'PLN';
 
-      component.countValue(currentValue, code);
+      component.convert(currentValue, code);
 
       expect(component.value).toBe(currentValue);
     });
@@ -93,7 +93,7 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        component.countValue(givenValue, rate.code);
+        component.convert(givenValue, rate.code);
         value = givenValue / component.getValueFromRate(component.currencyCode);
         value *= component.getValueFromRate(rate.code);
 
@@ -114,7 +114,7 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        component.countValue(givenValue, rate.code);
+        component.convert(givenValue, rate.code);
         value = givenValue * component.getValueFromRate(rate.code);
 
         if (CurrencyConverterCommon.isFloat(value)) {
@@ -134,7 +134,7 @@ describe('CurrencyConverterDataComponent', () => {
       ratesMock.forEach((rate) => {
         let value: any = 0;
 
-        component.countValue(givenValue, rate.code);
+        component.convert(givenValue, rate.code);
         value = givenValue * component.getValueFromRate(rate.code);
         value /= component.getValueFromRate(component.currencyCode);
 
