@@ -127,4 +127,30 @@ describe('CurrencyConverterDataComponent', () => {
       });
     });
   });
+
+  describe('getValueFromRate', () => {
+    beforeEach(() => {
+      component.rates = ratesMock;
+    });
+
+    afterEach(() => {
+      component.rates = null;
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getValueFromRate('PLN')).toBe(ratesMock[0].value);
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getValueFromRate('USD')).toBe(ratesMock[1].value);
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getValueFromRate('EUR')).toBe(ratesMock[2].value);
+    });
+
+    it('should return PLN rate value', function() {
+      expect(component.getValueFromRate('GBP')).toBe(ratesMock[3].value);
+    });
+  });
 });

@@ -7,6 +7,8 @@ import { CurrencyConverterCommon } from './currency-converter-common/currency-co
   styleUrls: ['./currency-converter-data.component.css']
 })
 export class CurrencyConverterDataComponent implements OnInit, OnChanges {
+  private BASE_CODE: string = 'PLN';
+
   amountLabel: string = 'amount:';
   errorMessage: string;
   @Input() value: number;
@@ -28,7 +30,7 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     }
 
     if (changes.rates && changes.rates.currentValue) {
-      value = this.convert(1, 'PLN');
+      value = this.convert(1, this.BASE_CODE);
     }
 
     if (changes.updateCurrencyValue) {
@@ -67,13 +69,13 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
   convert (value: number, code: string) : number {
     if ('from' === this.mode) {
-      if ('PLN' !== code) {
+      if (this.BASE_CODE !== code) {
         value *= this.getValueFromRate(code);
       }
 
       value = value / this.getValueFromRate(this.currencyCode);
     } else if ('to' === this.mode) {
-      if ('PLN' !== this.currencyCode) {
+      if (this.BASE_CODE !== this.currencyCode) {
         value /= this.getValueFromRate(this.currencyCode);
       }
 
