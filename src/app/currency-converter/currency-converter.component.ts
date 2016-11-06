@@ -12,12 +12,12 @@ export class CurrencyConverterComponent implements OnInit {
   errorMessage: string;
   rates: any;
 
-  master = {
+  master: any = {
     code: 'PLN',
     value: 1
   };
 
-  slave = {
+  slave: any = {
     code: 'USD',
     value: 0
   };

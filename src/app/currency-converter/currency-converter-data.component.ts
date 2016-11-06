@@ -11,8 +11,6 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
 
   amountLabel: string = 'amount:';
   errorMessage: string;
-  @Input() value: number;
-  @Output() currencyValueUpdate: EventEmitter<string> = new EventEmitter<string>();
   @Output() currencyCodeChange: EventEmitter<string> = new EventEmitter<string>();
   @Input() currencyCode: string = 'USD';
   @Input() updateCurrencyValue: number;
@@ -100,6 +98,8 @@ export class CurrencyConverterDataComponent implements OnInit, OnChanges {
     return value;
   }
 
+  @Input() value: number;
+  @Output() currencyValueUpdate: EventEmitter<string> = new EventEmitter<string>();
   onCurrencyValueChange(changes, currencyCode) {
     currencyCode = currencyCode ? currencyCode : this.currencyCode;
 

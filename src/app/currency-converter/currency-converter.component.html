@@ -1,31 +1,27 @@
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12 col-md-12 col-xs-12">
-      <header>
-        <h2>
-          {{title}}
-        </h2>
-      </header>
-      <section class="currency-converter row">
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-          <app-currency-converter-data [master]="true" [rates]="rates" [mode]="'from'" [currencyCode]="master.code"  [value]="master.value" [updateCurrencyValue]="updatedCurrencyValue" (currencyValueUpdate)="updateCurrencyValue($event)"(currencyCodeChange)="onCurrencyCodeUpdateMaster($event)"></app-currency-converter-data>
-        </div>
-        <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
-          <div class="center-block">
-            <i class="glyphicon glyphicon-arrow-left"></i>
-          </div>
-          <div class="center-block">
-            <i class="glyphicon glyphicon-arrow-right"></i>
-          </div>
-        </div>
-        <div class="icons hidden-lg hidden-md hidden-sm col-xs-12">
-            <i class="glyphicon glyphicon-arrow-up"></i>
-            <i class="glyphicon glyphicon-arrow-down"></i>
-        </div>
-        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-          <app-currency-converter-data [rates]="rates" [mode]="'to'" [currencyCode]="slave.code"  [value]="slave.value" [updateCurrencyValue]="updatedCurrencyValue" (currencyValueUpdate)="updateCurrencyValue($event)" (currencyCodeChange)="onCurrencyCodeUpdateSlave($event)"></app-currency-converter-data>
-        </div>
-      </section>
+  <header>
+    <h2>
+      {{title}}
+    </h2>
+  </header>
+  <section class="currency-converter row">
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+      <app-currency-converter-form></app-currency-converter-form>
     </div>
-  </div>
+    <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
+      <div class="center-block">
+        <i class="glyphicon glyphicon-arrow-left"></i>
+      </div>
+      <div class="center-block">
+        <i class="glyphicon glyphicon-arrow-right"></i>
+      </div>
+    </div>
+    <div class="icons hidden-lg hidden-md hidden-sm col-xs-12">
+        <i class="glyphicon glyphicon-arrow-up"></i>
+        <i class="glyphicon glyphicon-arrow-down"></i>
+    </div>
+    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+      <app-currency-converter-form></app-currency-converter-form>
+    </div>
+  </section>
 </div>

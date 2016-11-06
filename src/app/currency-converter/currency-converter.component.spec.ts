@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { CurrencyRatesService } from './currency-rates.service';
 
 import { CurrencyConverterComponent } from './currency-converter.component';
-import { CurrencyConverterDataComponent } from './currency-converter-data.component';
+import { CurrencyConverterFormComponent } from './currency-converter-form/currency-converter-form.component';
 
 describe('CurrencyConverterComponent', () => {
   let component: CurrencyConverterComponent;
@@ -34,7 +34,7 @@ describe('CurrencyConverterComponent', () => {
       ],
       declarations: [
         CurrencyConverterComponent,
-        CurrencyConverterDataComponent
+        CurrencyConverterFormComponent
       ],
       providers: [
         CurrencyRatesService
