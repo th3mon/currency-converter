@@ -9,7 +9,7 @@ import { CurrencyRatesService } from './currency-rates.service';
 import { CurrencyConverterComponent } from './currency-converter.component';
 import { CurrencyConverterFormComponent } from './currency-converter-form/currency-converter-form.component';
 
-fdescribe('CurrencyConverterComponent', () => {
+describe('CurrencyConverterComponent', () => {
   let component: CurrencyConverterComponent;
   let fixture: ComponentFixture<CurrencyConverterComponent>;
   let ratesMock = [{
@@ -49,15 +49,41 @@ fdescribe('CurrencyConverterComponent', () => {
     fixture.detectChanges();
   });
 
+  beforeEach(() => {
+    component.rates = ratesMock;
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('getRateValue', () => {
-    beforeEach(() => {
-      component.rates = ratesMock;
-    });
+  it('should setup defaults for TARGET', () => {
+    let expected: any = {};
 
+    component.target = {
+      code: 'GBP',
+      value: null,
+      rate: null
+    };
+
+    component.have = {
+      code: 'PLN',
+      value: 1,
+      rate: component.getRateValue('PLN')
+    };
+
+    expected.code = component.target.code;
+    expected.rate = component.getRateValue(component.target.code);
+    expected.value = component.convertToBase(component.have);
+    expected.value = component.convert(expected.value, expected.rate);
+    expected.value = component.setDecimalPlaces(expected.value);
+
+    component.setDefaultsTarget();
+
+    expect(component.target).toEqual(expected);
+  });
+
+  describe('getRateValue', () => {
     afterEach(() => {
       component.rates = null;
     });
@@ -88,10 +114,6 @@ fdescribe('CurrencyConverterComponent', () => {
   });
 
   describe('convert', () => {
-    beforeEach(() => {
-      component.rates = ratesMock;
-    });
-
     afterEach(() => {
       component.rates = null;
     });
@@ -153,8 +175,6 @@ fdescribe('CurrencyConverterComponent', () => {
 
   describe('on changes', () => {
     beforeEach(() => {
-      component.rates = ratesMock;
-
       this.from = {
         code: 'EUR',
         value: 10,
