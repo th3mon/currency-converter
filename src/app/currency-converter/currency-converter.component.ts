@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrencyRatesService } from './currency-rates.service';
+import { CurrencyConverterCommon } from './currency-converter-common/currency-converter-common';
 
 @Component({
   selector: 'app-currency-converter',
@@ -14,11 +15,13 @@ export class CurrencyConverterComponent implements OnInit {
 
   master: any = {
     code: 'PLN',
+    rate: 1,
     value: 1
   };
 
   slave: any = {
     code: 'USD',
+    rate: 0,
     value: 0
   };
 
@@ -41,12 +44,30 @@ export class CurrencyConverterComponent implements OnInit {
     this._currencyRateService.getRates().subscribe(
       rates => this.rates = rates,
       error => this.errorMessage = <any>error,
-      () => this.setDefaults()
+      () => this.setDefaultsSlave()
     );
   }
 
-  setDefaults () {
-    this.slave.value = this.getRateValue(this.slave.code);
+  setDefaultsSlave () {
+    let value;
+
+    this.slave.rate = this.getRateValue(this.slave.code);
+
+    value = this.convert({
+      value: this.master.value,
+      code: this.master.code
+    }, this.slave.rate);
+
+    value = this.setDecimalPlaces(value);
+    this.slave.value = value;
+  }
+
+  setDecimalPlaces(value: number, decimalPlaces: number = 3) : string {
+    if (CurrencyConverterCommon.isFloat(value)) {
+      return value.toFixed(decimalPlaces);
+    }
+
+    return value.toString();
   }
 
   getRateValue (code: string): number {
@@ -64,33 +85,43 @@ export class CurrencyConverterComponent implements OnInit {
     return value;
   }
 
-  updateCurrencyValue (changes) {
-    changes = JSON.parse(changes);
+  onValueChange__Master(from) {
+    let value;
 
-    if (changes.master) {
-      this.master = {
-        code: changes.currencyCode,
-        value: changes.value
-      };
+    from = JSON.parse(from);
+    value = this.convert(from, this.slave.rate);
+    value = this.setDecimalPlaces(value);
 
-    } else if (changes.slave) {
-      this.slave = {
-        code: changes.currencyCode,
-        value: changes.value
-      };
-    }
-
-    this.updatedCurrencyValue = changes;
+    this.slave.value = value;
   }
 
-  onCurrencyCodeUpdateSlave (changes) {
-    this.updateCurrencyValue(JSON.stringify({
-      currencyCode: this.master.code,
-      value: this.master.value
-    }));
+  onCodeChange__Master(from) {
+    let value;
+
+    from = JSON.parse(from);
+    value = this.convert(from, this.slave.rate);
+    value = this.setDecimalPlaces(value);
+
+    this.slave.value = value;
   }
 
-  onCurrencyCodeUpdateMaster (changes) {
-    this.updateCurrencyValue(changes);
+  onValueChange__Slave(from) {
+    let value;
+
+    from = JSON.parse(from);
+    value = this.convert(from, this.master.rate);
+    value = this.setDecimalPlaces(value);
+
+    this.master.value = value;
+  }
+
+  onCodeChange__Slave (from) {
+    let value;
+
+    from = JSON.parse(from);
+    value = this.convert(from, this.master.rate);
+    value = this.setDecimalPlaces(value);
+
+    this.slave.value = value;
   }
 }

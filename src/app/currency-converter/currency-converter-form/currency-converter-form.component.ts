@@ -8,15 +8,29 @@ import { CurrencyConverterCommon } from '../currency-converter-common/currency-c
 })
 export class CurrencyConverterFormComponent implements OnInit, OnChanges {
   amountLabel: string = 'amount:';
+  @Input() rates: any;
+  @Input() rate: number;
+  @Input() code: string;
+  @Input() value: number;
 
   ngOnInit () {}
 
   ngOnChanges (changes) {
-    console.log(changes);
   }
 
   @Output() valueChanged: EventEmitter<string> = new EventEmitter<string>();
   changeValue (value) {
-    this.valueChanged.next(value);
+    this.valueChanged.next(JSON.stringify({
+      value,
+      code: this.code
+    }));
+  }
+
+  @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
+  changeCode (code) {
+    this.codeChanged.next(JSON.stringify({
+      value: this.value,
+      code
+    }));
   }
 }

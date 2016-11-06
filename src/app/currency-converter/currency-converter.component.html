@@ -6,7 +6,14 @@
   </header>
   <section class="currency-converter row">
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-      <app-currency-converter-form></app-currency-converter-form>
+      <app-currency-converter-form
+        [rates]="rates"
+        [rate]="master.rate"
+        [code]="master.code"
+        [value]="master.value"
+        (valueChanged)="onValueChange__Master($event)"
+        (codeChanged)="onCodeChange__Master($event)"
+      ></app-currency-converter-form>
     </div>
     <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
       <div class="center-block">
@@ -21,7 +28,14 @@
         <i class="glyphicon glyphicon-arrow-down"></i>
     </div>
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-      <app-currency-converter-form></app-currency-converter-form>
+      <app-currency-converter-form
+        [rates]="rates"
+        [rate]="slave.rate"
+        [code]="slave.code"
+        [value]="slave.value"
+        (valueChanged)="onValueChange__Slave($event)"
+        (codeChanged)="onCodeChange__Slave($event)"
+      ></app-currency-converter-form>
     </div>
   </section>
 </div>

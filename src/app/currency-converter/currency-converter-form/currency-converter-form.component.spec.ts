@@ -21,6 +21,8 @@ describe('CurrencyConverterFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CurrencyConverterFormComponent);
     component = fixture.componentInstance;
+    component.rate = 1;
+    component.code = 'PLN';
     fixture.detectChanges();
   });
 
@@ -37,20 +39,22 @@ describe('CurrencyConverterFormComponent', () => {
 
   it('should raise valueChanged event when value is changed', function() {
     let
-      expectedValue: number = 10,
+      expectedValue: any = {
+        value: 10,
+        code: 'PLN'
+      },
       input = fixture.debugElement.query(By.css('.currency-converter__data-input')),
-      changedValue: string;
+      changedValue: any;
 
-    component.valueChanged.subscribe((value) => {
-      changedValue = value
-    });
+    component.rate = expectedValue.rate;
+    component.valueChanged.subscribe((value) => changedValue = JSON.parse(value));
 
     input.triggerEventHandler('keyup', {
       target: {
-        value: expectedValue
+        value: expectedValue.value
       }
     });
 
-    expect(changedValue).toBe(expectedValue);
+    expect(changedValue).toEqual(expectedValue);
   });
 });
