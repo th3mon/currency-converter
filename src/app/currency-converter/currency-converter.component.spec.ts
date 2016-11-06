@@ -9,7 +9,7 @@ import { CurrencyRatesService } from './currency-rates.service';
 import { CurrencyConverterComponent } from './currency-converter.component';
 import { CurrencyConverterFormComponent } from './currency-converter-form/currency-converter-form.component';
 
-describe('CurrencyConverterComponent', () => {
+fdescribe('CurrencyConverterComponent', () => {
   let component: CurrencyConverterComponent;
   let fixture: ComponentFixture<CurrencyConverterComponent>;
   let ratesMock = [{
@@ -122,6 +122,32 @@ describe('CurrencyConverterComponent', () => {
 
         expect(component.convert(from.value, rate.value)).toBe(value);
       });
+    });
+
+    it('should convert to base currency', () => {
+      let
+        from = {
+          code: 'GBP',
+          rate: component.getRateValue('GBP'),
+          value: 10
+        },
+
+        expected = component.convertToBase(from);
+
+      expect(from.value * from.rate).toBe(expected);
+    });
+
+    it(`should not convert to base currency, should return FROM's value instead`, () => {
+      let
+        from = {
+          code: 'PLN',
+          rate: component.getRateValue('GBP'),
+          value: 10
+        },
+
+        expected = component.convertToBase(from);
+
+      expect(from.value).toBe(expected);
     });
   });
 
