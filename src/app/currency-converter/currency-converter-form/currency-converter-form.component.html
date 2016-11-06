@@ -8,7 +8,7 @@
   <label class="currency-converter__data-label" for="amount">
     {{amountLabel | uppercase}}
   </label>
-  <input class="form-control currency-converter__data-input"
+  <input class="form-control currency-converter__data-input" type="number"
     [(ngModel)]="value"
     (keyup)="changeValue($event.target.value)"
   >
