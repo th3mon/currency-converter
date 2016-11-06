@@ -17,13 +17,13 @@ describe('CurrencyConverterComponent', () => {
     value: 1
   }, {
     code: 'USD',
-    value: 0.259
+    value: 10
   }, {
     code: 'EUR',
-    value: 0.233
+    value: 100
   }, {
     code: 'GBP',
-    value: 0.208
+    value: 1000
   }];
 
   beforeEach(async(() => {
@@ -105,7 +105,7 @@ describe('CurrencyConverterComponent', () => {
 
         rateValue: number = component.getRateValue(from.code);
 
-      expect(component.convert(from, rateValue)).toBe(from.value);
+      expect(component.convert(from.value, rateValue)).toBe(from.value);
     });
 
     it('should convert value', function() {
@@ -119,9 +119,8 @@ describe('CurrencyConverterComponent', () => {
 
       ratesMock.forEach((rate) => {
         value = from.value / rate.value;
-        value *= component.getRateValue(from.code);
 
-        expect(component.convert(from, rate.value)).toBe(value);
+        expect(component.convert(from.value, rate.value)).toBe(value);
       });
     });
   });
