@@ -13,13 +13,18 @@ export class CurrencyConverterComponent implements OnInit {
   errorMessage: string;
   rates: any;
 
-  master: any = {
+  BASE: any = {
+    code: 'PLN',
+    rate: 1
+  };
+
+  have: any = {
     code: 'PLN',
     rate: 1,
     value: 1
   };
 
-  slave: any = {
+  target: any = {
     code: 'USD',
     rate: 0,
     value: 0
@@ -34,8 +39,8 @@ export class CurrencyConverterComponent implements OnInit {
   convert (from: any, rateValue: number) : number {
     let value: number;
 
-    value = from.value / rateValue;
-    value *= this.getRateValue(from.code);
+    // value = from.value / rateValue;
+    value = from.value * this.getRateValue(from.code);
 
     return value;
   }
@@ -44,22 +49,44 @@ export class CurrencyConverterComponent implements OnInit {
     this._currencyRateService.getRates().subscribe(
       rates => this.rates = rates,
       error => this.errorMessage = <any>error,
-      () => this.setDefaultsSlave()
+      () => {
+        this.have.code = 'EUR';
+        this.have.value = 10;
+        this.have.rate = this.getRateValue(this.have.code);
+
+        this.target.code = 'GBP';
+
+        this.setDefaultsTarget();
+      }
     );
   }
 
-  setDefaultsSlave () {
+  setDefaultsTarget () {
     let value;
 
-    this.slave.rate = this.getRateValue(this.slave.code);
+    this.target.rate = this.getRateValue(this.target.code);
 
-    value = this.convert({
-      value: this.master.value,
-      code: this.master.code
-    }, this.slave.rate);
-
+    value = this.convertToBase(this.have);
+    value = this.convertHaveToTarget(value, this.target.rate);
     value = this.setDecimalPlaces(value);
-    this.slave.value = value;
+
+    this.target.value = value;
+  }
+
+  convertToBase (from) {
+    if (from.code !== this.BASE.code) {
+      return from.value * from.rate;
+    } else {
+      return from.value;
+    }
+  }
+
+  convertHaveToTarget (haveValue, targetRate) {
+    return haveValue / targetRate;
+  }
+
+  convertTargetToHave (targetValue, haveRate) {
+    return targetValue / haveRate;
   }
 
   setDecimalPlaces(value: number, decimalPlaces: number = 3) : string {
@@ -85,43 +112,80 @@ export class CurrencyConverterComponent implements OnInit {
     return value;
   }
 
-  onValueChange__Master(from) {
+  onValueChange__have(from) {
     let value;
 
     from = JSON.parse(from);
-    value = this.convert(from, this.slave.rate);
+    from.rate = this.getRateValue(from.code);
+
+    value = this.convertToBase(from);
+    value = this.convertHaveToTarget(value, this.target.rate);
     value = this.setDecimalPlaces(value);
 
-    this.slave.value = value;
+    this.target.value = value;
+
+    // update have
+    this.have.value = from.value;
   }
 
-  onCodeChange__Master(from) {
+  onCodeChange__have(from) {
     let value;
 
     from = JSON.parse(from);
-    value = this.convert(from, this.slave.rate);
+
+    // update have
+    this.have.code = from.code;
+    this.have.value = from.value;
+    this.have.rate = this.getRateValue(this.have.code);
+
+    value = this.convertToBase(this.have);
+    value = this.convertHaveToTarget(value, this.target.rate);
     value = this.setDecimalPlaces(value);
 
-    this.slave.value = value;
+    this.target.value = value;
   }
 
-  onValueChange__Slave(from) {
+  onValueChange__target(from) {
     let value;
 
     from = JSON.parse(from);
-    value = this.convert(from, this.master.rate);
+    from.rate = this.getRateValue(from.code);
+
+    value = this.convertToBase(from);
+    value = this.convertTargetToHave(value, this.have.rate);
     value = this.setDecimalPlaces(value);
 
-    this.master.value = value;
+    this.have.value = value;
   }
 
-  onCodeChange__Slave (from) {
+  isCodeSame (fromCode: string, toCode: string) : boolean {
+    return fromCode === toCode;
+  }
+
+  onCodeChange__target (from) {
     let value;
 
     from = JSON.parse(from);
-    value = this.convert(from, this.master.rate);
-    value = this.setDecimalPlaces(value);
+    from.rate = this.getRateValue(from.code);
 
-    this.slave.value = value;
+    value = this.convertToBase(this.have);
+    value = this.convertHaveToTarget(value, from.rate);
+    // if (this.isCodeSame(from.code, this.have.code)) {
+    //   value = this.have.value;
+    // } else {
+    // // value = from.value / rateValue;
+    //   // value = from.value * this.have.rate;
+    //   // value = this.convert(from, this.have.rate);
+
+    //   // value = from.value * this.getRateValue(from.code);
+    //   // value = value / this.have.rate;
+
+    value = this.setDecimalPlaces(value);
+    // }
+
+    // this.target.value = value;
+    this.target.code = from.code;
+    this.target.rate = from.rate;
+    this.target.value = value;
   }
 }

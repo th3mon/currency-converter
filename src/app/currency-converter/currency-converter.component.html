@@ -8,11 +8,11 @@
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
       <app-currency-converter-form
         [rates]="rates"
-        [rate]="master.rate"
-        [code]="master.code"
-        [value]="master.value"
-        (valueChanged)="onValueChange__Master($event)"
-        (codeChanged)="onCodeChange__Master($event)"
+        [rate]="have.rate"
+        [code]="have.code"
+        [value]="have.value"
+        (valueChanged)="onValueChange__have($event)"
+        (codeChanged)="onCodeChange__have($event)"
       ></app-currency-converter-form>
     </div>
     <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
@@ -30,11 +30,11 @@
     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
       <app-currency-converter-form
         [rates]="rates"
-        [rate]="slave.rate"
-        [code]="slave.code"
-        [value]="slave.value"
-        (valueChanged)="onValueChange__Slave($event)"
-        (codeChanged)="onCodeChange__Slave($event)"
+        [rate]="target.rate"
+        [code]="target.code"
+        [value]="target.value"
+        (valueChanged)="onValueChange__target($event)"
+        (codeChanged)="onCodeChange__target($event)"
       ></app-currency-converter-form>
     </div>
   </section>
