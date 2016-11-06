@@ -201,7 +201,7 @@ describe('CurrencyConverterComponent', () => {
       this.expected.value = component.convert(this.expected.value, component.target.rate);
       this.expected.value = component.setDecimalPlaces(this.expected.value);
 
-      component.onValueChange__have(JSON.stringify(this.from));
+      component.onValueChangeHave(JSON.stringify(this.from));
       changed = component.target;
 
       expect(changed.value).toEqual(this.expected.value);
@@ -212,7 +212,7 @@ describe('CurrencyConverterComponent', () => {
 
       component.have.value = null;
 
-      component.onValueChange__have(JSON.stringify(this.from));
+      component.onValueChangeHave(JSON.stringify(this.from));
       changed = component.have.value;
 
       expect(changed).toEqual(this.from.value);
@@ -243,7 +243,7 @@ describe('CurrencyConverterComponent', () => {
       this.expected.value = component.convert(this.expected.value, component.target.rate);
       this.expected.value = component.setDecimalPlaces(this.expected.value);
 
-      component.onCodeChange__have(JSON.stringify(this.from));
+      component.onCodeChangeHave(JSON.stringify(this.from));
       changed = component.target;
 
       expect(changed).toEqual(this.expected);
@@ -266,7 +266,7 @@ describe('CurrencyConverterComponent', () => {
         rate: null
       };
 
-      component.onCodeChange__have(JSON.stringify(this.from));
+      component.onCodeChangeHave(JSON.stringify(this.from));
       changed = component.have;
 
       expect(changed).toEqual(expected);
@@ -285,7 +285,7 @@ describe('CurrencyConverterComponent', () => {
       this.expected.value = component.convert(this.expected.value, component.have.rate);
       this.expected.value = component.setDecimalPlaces(this.expected.value);
 
-      component.onValueChange__target(JSON.stringify(this.from));
+      component.onValueChangeTarget(JSON.stringify(this.from));
       changed = component.have;
 
       expect(changed.value).toEqual(this.expected.value);
@@ -304,7 +304,7 @@ describe('CurrencyConverterComponent', () => {
       this.expected.value = component.convert(this.expected.value, this.from.rate);
       this.expected.value = component.setDecimalPlaces(this.expected.value);
 
-      component.onCodeChange__target(JSON.stringify(this.from));
+      component.onCodeChangeTarget(JSON.stringify(this.from));
       changed = component.target;
 
       expect(changed).toEqual(this.expected);

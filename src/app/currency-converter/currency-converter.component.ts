@@ -91,7 +91,7 @@ export class CurrencyConverterComponent implements OnInit {
     return value;
   }
 
-  onValueChange__have(from) {
+  onValueChangeHave(from) {
     let value;
 
     from = JSON.parse(from);
@@ -107,7 +107,7 @@ export class CurrencyConverterComponent implements OnInit {
     this.have.value = from.value;
   }
 
-  onCodeChange__have(from) {
+  onCodeChangeHave(from) {
     let value;
 
     from = JSON.parse(from);
@@ -124,7 +124,7 @@ export class CurrencyConverterComponent implements OnInit {
     this.target.value = value;
   }
 
-  onValueChange__target(from) {
+  onValueChangeTarget(from) {
     let value;
 
     from = JSON.parse(from);
@@ -137,7 +137,7 @@ export class CurrencyConverterComponent implements OnInit {
     this.have.value = value;
   }
 
-  onCodeChange__target (from) {
+  onCodeChangeTarget (from) {
     let value;
 
     from = JSON.parse(from);

@@ -11,8 +11,8 @@
         [rate]="have.rate"
         [code]="have.code"
         [value]="have.value"
-        (valueChanged)="onValueChange__have($event)"
-        (codeChanged)="onCodeChange__have($event)"
+        (valueChanged)="onValueChangeHave($event)"
+        (codeChanged)="onCodeChangeHave($event)"
       ></app-currency-converter-form>
     </div>
     <div class="icons col-lg-2 col-md-2 col-sm-2 hidden-xs">
@@ -33,8 +33,8 @@
         [rate]="target.rate"
         [code]="target.code"
         [value]="target.value"
-        (valueChanged)="onValueChange__target($event)"
-        (codeChanged)="onCodeChange__target($event)"
+        (valueChanged)="onValueChangeTarget($event)"
+        (codeChanged)="onCodeChangeTarget($event)"
       ></app-currency-converter-form>
     </div>
   </section>
