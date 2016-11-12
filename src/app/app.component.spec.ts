@@ -2,7 +2,7 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { CurrencyConverterComponent } from './currency-converter/currency-converter.mock';
+import { CurrencyConverterComponent } from './currency-converter/mock/currency-converter-component.mock';
 
 describe('App: CurrencyConverter', () => {
   beforeEach(() => {
