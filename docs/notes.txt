@@ -1,3 +1,6 @@
 http://api.nbp.pl/api/exchangerates/rates/{table}/{code}/
 
 http://api.nbp.pl/api/exchangerates/rates/C/USD?format=json
+
+Flags:
+http://www.famfamfam.com/lab/icons/flags/
