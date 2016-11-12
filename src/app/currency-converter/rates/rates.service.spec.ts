@@ -8,13 +8,13 @@ import { RatesService } from './rates.service';
 xdescribe('Service: CurrencyRates', () => {
   beforeEach(() => {
     this.currencyRatesStub = {
-      table: "C",
-      currency: "dolar amerykański",
-      code: "USD",
+      table: 'C',
+      currency: 'dolar amerykański',
+      code: 'USD',
       rates: [
         {
-          no: "212/C/NBP/2016",
-          effectiveDate: "2016-11-02",
+          no: '212/C/NBP/2016',
+          effectiveDate: '2016-11-02',
           bid: 3.9177,
           ask: 3.9969
         }
@@ -37,7 +37,7 @@ xdescribe('Service: CurrencyRates', () => {
     mockbackend.connections.subscribe(connection => {
       connection.mockRespond(new Response(<any>{
         body: JSON.stringify(this.currencyRatesStub)
-      }))
+      }));
     });
     service.getRates().subscribe(rates => {
       expect(rates).toBeTruthy();

@@ -64,11 +64,11 @@ export class CurrencyConverterComponent implements OnInit {
     }
   }
 
-  convert (value: number, rate: number) : number {
+  convert (value: number, rate: number): number {
     return value / rate;
   }
 
-  setDecimalPlaces(value: number, decimalPlaces: number = 3) : string {
+  setDecimalPlaces(value: number, decimalPlaces = 3): string {
     if (Common.isFloat(value)) {
       return value.toFixed(decimalPlaces);
     }

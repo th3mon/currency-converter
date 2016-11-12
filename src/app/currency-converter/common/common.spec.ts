@@ -10,11 +10,11 @@ describe('Common', () => {
 
   describe('Parsing values', () => {
     it('should parse String to Number', function() {
-      expect(typeof Common.parseToNumber("5000")).toBe("number");
+      expect(typeof Common.parseToNumber('5000')).toBe('number');
     });
 
     it(`should return value if it doesn't have number itself`, function() {
-      expect(typeof Common.parseToNumber("There is no number")).toBe("string");
+      expect(typeof Common.parseToNumber('There is no number')).toBe('string');
     });
   });
 

@@ -11,13 +11,14 @@ export class FormComponent implements OnInit, OnChanges {
   @Input() rate: number;
   @Input() code: string;
   @Input() value: number;
+  @Output() valueChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit () {}
 
   ngOnChanges (changes) {
   }
 
-  @Output() valueChanged: EventEmitter<string> = new EventEmitter<string>();
   changeValue (value) {
     this.valueChanged.next(JSON.stringify({
       value,
@@ -25,7 +26,6 @@ export class FormComponent implements OnInit, OnChanges {
     }));
   }
 
-  @Output() codeChanged: EventEmitter<string> = new EventEmitter<string>();
   changeCode (code) {
     this.codeChanged.next(JSON.stringify({
       value: this.value,

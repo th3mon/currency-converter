@@ -1,5 +1,5 @@
 export class Common {
-  static parseToNumber (value: string) : any {
+  static parseToNumber (value: string): any {
     let parsedValue: number = Number(value);
 
     if (!Number.isNaN(parsedValue)) {
@@ -9,11 +9,11 @@ export class Common {
     return value;
   }
 
-  static isFloat (value: number) : boolean {
+  static isFloat (value: number): boolean {
     return value % 1 !== 0;
   }
 
-  static isNumber (value: any) : boolean {
+  static isNumber (value: any): boolean {
     return typeof value === 'number';
   }
 }
