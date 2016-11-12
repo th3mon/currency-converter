@@ -1,4 +1,4 @@
-export class CurrencyConverterCommon {
+export class Common {
   static parseToNumber (value: string) : any {
     let parsedValue: number = Number(value);
 

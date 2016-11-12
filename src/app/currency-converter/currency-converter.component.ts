@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RatesService } from './rates/rates.service';
-import { CurrencyConverterCommon } from './currency-converter-common/currency-converter-common';
+import { Common } from './common/common';
 
 @Component({
   selector: 'app-currency-converter',
@@ -69,7 +69,7 @@ export class CurrencyConverterComponent implements OnInit {
   }
 
   setDecimalPlaces(value: number, decimalPlaces: number = 3) : string {
-    if (CurrencyConverterCommon.isFloat(value)) {
+    if (Common.isFloat(value)) {
       return value.toFixed(decimalPlaces);
     }
 
