@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { Http, BaseRequestOptions, Response } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { CurrencyRatesService } from './currency-rates.service';
+import { RatesService } from './rates.service';
 
 xdescribe('Service: CurrencyRates', () => {
   beforeEach(() => {
@@ -24,16 +24,16 @@ xdescribe('Service: CurrencyRates', () => {
     TestBed.configureTestingModule({
       providers: [
         Http,
-        CurrencyRatesService
+        RatesService
       ]
     });
   });
 
-  it('should be defined', inject([CurrencyRatesService], (service: CurrencyRatesService) => {
+  it('should be defined', inject([RatesService], (service: RatesService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should get currency rates', inject([CurrencyRatesService, MockBackend], (service: CurrencyRatesService, mockbackend: MockBackend) => {
+  it('should get currency rates', inject([RatesService, MockBackend], (service: RatesService, mockbackend: MockBackend) => {
     mockbackend.connections.subscribe(connection => {
       connection.mockRespond(new Response(<any>{
         body: JSON.stringify(this.currencyRatesStub)

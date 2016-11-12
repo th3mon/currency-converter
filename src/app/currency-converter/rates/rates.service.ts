@@ -7,7 +7,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class CurrencyRatesService {
+export class RatesService {
   private _serviceUrl = '//api.nbp.pl/api/exchangerates/rates/C/';
   private _serviceTablesUrl = '//api.nbp.pl/api/exchangerates/tables/C/';
   private _jsonFormatParametr = '?format=json';

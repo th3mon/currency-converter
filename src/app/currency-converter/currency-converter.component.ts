@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyRatesService } from './currency-converter-rates/currency-rates.service';
+import { RatesService } from './rates/rates.service';
 import { CurrencyConverterCommon } from './currency-converter-common/currency-converter-common';
 
 @Component({
@@ -30,7 +30,7 @@ export class CurrencyConverterComponent implements OnInit {
     value: 0
   };
 
-  constructor(private _currencyRateService: CurrencyRatesService) {}
+  constructor(private _currencyRateService: RatesService) {}
 
   ngOnInit() {
     this.getRates();
