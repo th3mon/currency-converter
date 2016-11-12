@@ -10,9 +10,10 @@ import { CurrencyConverterComponent } from './currency-converter.component';
 import { FormComponent } from './form/form.component';
 
 describe('CurrencyConverterComponent', () => {
-  let component: CurrencyConverterComponent;
-  let fixture: ComponentFixture<CurrencyConverterComponent>;
-  let ratesMock = [{
+  let
+    component: CurrencyConverterComponent,
+    fixture: ComponentFixture<CurrencyConverterComponent>,
+    ratesMock = [{
       code: 'PLN',
       value: 1
     }, {
