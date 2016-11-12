@@ -4,15 +4,16 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { CurrencyRatesService } from './currency-rates.service';
+import { RatesService } from './rates/rates.service';
 
 import { CurrencyConverterComponent } from './currency-converter.component';
-import { CurrencyConverterFormComponent } from './currency-converter-form/currency-converter-form.component';
+import { FormComponent } from './form/form.component';
 
 describe('CurrencyConverterComponent', () => {
-  let component: CurrencyConverterComponent;
-  let fixture: ComponentFixture<CurrencyConverterComponent>;
-  let ratesMock = [{
+  let
+    component: CurrencyConverterComponent,
+    fixture: ComponentFixture<CurrencyConverterComponent>,
+    ratesMock = [{
       code: 'PLN',
       value: 1
     }, {
@@ -34,10 +35,10 @@ describe('CurrencyConverterComponent', () => {
       ],
       declarations: [
         CurrencyConverterComponent,
-        CurrencyConverterFormComponent
+        FormComponent
       ],
       providers: [
-        CurrencyRatesService
+        RatesService
       ]
     })
     .compileComponents();

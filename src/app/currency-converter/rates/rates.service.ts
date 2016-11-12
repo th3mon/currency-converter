@@ -7,11 +7,12 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class CurrencyRatesService {
-  private _serviceUrl = '//api.nbp.pl/api/exchangerates/rates/C/';
-  private _serviceTablesUrl = '//api.nbp.pl/api/exchangerates/tables/C/';
-  private _jsonFormatParametr = '?format=json';
-  private _translate = {
+export class RatesService {
+  private _serviceUrl: string = '//api.nbp.pl/api/exchangerates/rates/C/';
+  private _serviceTablesUrl: string = '//api.nbp.pl/api/exchangerates/tables/C/';
+  private _jsonFormatParametr: string = '?format=json';
+  // TODO: Make enum for translates
+  private _translate: any = {
     USD: 'US Dollar',
     EUR: 'Euro',
     GBP: 'Pound Sterling',
@@ -25,7 +26,8 @@ export class CurrencyRatesService {
 
     return this._http.get(url)
       .map((response: Response) => {
-        let r = response.json();
+        // TODO: Make interface Rate
+        let r: any = response.json();
 
         return <any> {
           value: r.rates[0].bid,
@@ -37,15 +39,18 @@ export class CurrencyRatesService {
   }
 
   getRates(): Observable<any> {
-    let url = `${this._serviceTablesUrl}${this._jsonFormatParametr}`,
-      regCurrenciesOfInterest = /USD|EUR|PLN|GBP/;
+    let
+      url = `${this._serviceTablesUrl}${this._jsonFormatParametr}`,
+      currenciesOfInterest: Array<string> = Object.keys(this._translate),
+      regCurrenciesOfInterest: RegExp = new RegExp(currenciesOfInterest.join('|'));
 
     return this._http.get(url)
       .map((response: Response) => {
-        let rates = <any> response.json()[0].rates
-          .filter((rate) => regCurrenciesOfInterest.test(rate.code))
-          .map((rate) => {
-            return {
+        let rates: any = <any> response.json()[0].rates
+          .filter((rate: any) => regCurrenciesOfInterest.test(rate.code))
+          .map((rate: any) => {
+            // TODO: Make interface Rate
+            return <any> {
               value: rate.bid,
               code: rate.code,
               label: this._translate[rate.code]
@@ -57,6 +62,7 @@ export class CurrencyRatesService {
           code: 'PLN',
           label: this._translate.PLN
         });
+
         return rates;
       })
       .do(data => console.log(`${JSON.stringify(data)}`))

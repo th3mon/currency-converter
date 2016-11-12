@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyRatesService } from './currency-rates.service';
-import { CurrencyConverterCommon } from './currency-converter-common/currency-converter-common';
+import { RatesService } from './rates/rates.service';
+import { Common } from './common/common';
 
 @Component({
   selector: 'app-currency-converter',
@@ -30,7 +30,7 @@ export class CurrencyConverterComponent implements OnInit {
     value: 0
   };
 
-  constructor(private _currencyRateService: CurrencyRatesService) {}
+  constructor(private _currencyRateService: RatesService) {}
 
   ngOnInit() {
     this.getRates();
@@ -45,7 +45,7 @@ export class CurrencyConverterComponent implements OnInit {
   }
 
   setDefaultsTarget () {
-    let value;
+    let value: any;
 
     this.target.rate = this.getRateValue(this.target.code);
 
@@ -56,7 +56,8 @@ export class CurrencyConverterComponent implements OnInit {
     this.target.value = value;
   }
 
-  convertToBase (from) {
+  // TODO: Make interface Rate; from should be Rate interface
+  convertToBase (from: any) {
     if (from.code !== this.BASE.code) {
       return from.value * from.rate;
     } else {
@@ -64,12 +65,12 @@ export class CurrencyConverterComponent implements OnInit {
     }
   }
 
-  convert (value: number, rate: number) : number {
+  convert (value: number, rate: number): number {
     return value / rate;
   }
 
-  setDecimalPlaces(value: number, decimalPlaces: number = 3) : string {
-    if (CurrencyConverterCommon.isFloat(value)) {
+  setDecimalPlaces(value: number, decimalPlaces = 3): string {
+    if (Common.isFloat(value)) {
       return value.toFixed(decimalPlaces);
     }
 
@@ -78,7 +79,8 @@ export class CurrencyConverterComponent implements OnInit {
 
   getRateValue (code: string): number {
     let
-      filteredRates: [any] = this.rates.filter((rate) => {
+      // TODO: Make interface Rate
+      filteredRates: [any] = this.rates.filter((rate: any) => {
         return rate.code === code;
       }),
 
@@ -91,8 +93,9 @@ export class CurrencyConverterComponent implements OnInit {
     return value;
   }
 
-  onValueChangeHave(from) {
-    let value;
+  // TODO: Make interface Rate
+  onValueChangeHave(from: any) {
+    let value: any;
 
     from = JSON.parse(from);
     from.rate = this.getRateValue(from.code);
@@ -107,8 +110,9 @@ export class CurrencyConverterComponent implements OnInit {
     this.have.value = from.value;
   }
 
-  onCodeChangeHave(from) {
-    let value;
+  // TODO: Make interface Rate
+  onCodeChangeHave(from: any) {
+    let value: any;
 
     from = JSON.parse(from);
 
@@ -124,8 +128,9 @@ export class CurrencyConverterComponent implements OnInit {
     this.target.value = value;
   }
 
-  onValueChangeTarget(from) {
-    let value;
+  // TODO: Make interface Rate
+  onValueChangeTarget(from: any) {
+    let value: any;
 
     from = JSON.parse(from);
     from.rate = this.getRateValue(from.code);
@@ -137,8 +142,9 @@ export class CurrencyConverterComponent implements OnInit {
     this.have.value = value;
   }
 
-  onCodeChangeTarget (from) {
-    let value;
+  // TODO: Make interface Rate
+  onCodeChangeTarget (from: any) {
+    let value: any;
 
     from = JSON.parse(from);
     from.rate = this.getRateValue(from.code);
