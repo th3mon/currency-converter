@@ -3,10 +3,10 @@ import { CurrencyConverterCommon } from '../currency-converter-common/currency-c
 
 @Component({
   selector: 'app-currency-converter-form',
-  templateUrl: './currency-converter-form.component.html',
-  styleUrls: ['./currency-converter-form.component.css']
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
 })
-export class CurrencyConverterFormComponent implements OnInit, OnChanges {
+export class FormComponent implements OnInit, OnChanges {
   amountLabel: string = 'amount:';
   @Input() rates: any;
   @Input() rate: number;

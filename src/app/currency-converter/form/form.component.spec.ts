@@ -4,22 +4,22 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { CurrencyConverterFormComponent } from './currency-converter-form.component';
+import { FormComponent } from './form.component';
 
-describe('CurrencyConverterFormComponent', () => {
-  let component: CurrencyConverterFormComponent;
-  let fixture: ComponentFixture<CurrencyConverterFormComponent>;
+describe('FormComponent', () => {
+  let component: FormComponent;
+  let fixture: ComponentFixture<FormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ FormsModule ],
-      declarations: [ CurrencyConverterFormComponent ]
+      declarations: [ FormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CurrencyConverterFormComponent);
+    fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
     component.rate = 1;
     component.code = 'PLN';

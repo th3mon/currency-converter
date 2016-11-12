@@ -6,13 +6,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CurrencyConverterComponent } from './currency-converter/currency-converter.component';
 import { RatesService } from './currency-converter/rates/rates.service';
-import { CurrencyConverterFormComponent } from './currency-converter/currency-converter-form/currency-converter-form.component';
+import { FormComponent } from './currency-converter/form/form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrencyConverterComponent,
-    CurrencyConverterFormComponent
+    FormComponent
   ],
   imports: [
     BrowserModule,
