@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrencyRatesService } from './currency-rates.service';
+import { CurrencyRatesService } from './currency-converter-rates/currency-rates.service';
 import { CurrencyConverterCommon } from './currency-converter-common/currency-converter-common';
 
 @Component({

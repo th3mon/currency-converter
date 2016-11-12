@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CurrencyConverterComponent } from './currency-converter.component';
-import { CurrencyRatesService } from './currency-rates.service';
+import { CurrencyRatesService } from './currency-converter-rates/currency-rates.service';
 
 @NgModule({
   imports: [
