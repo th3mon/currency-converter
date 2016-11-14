@@ -7,3 +7,6 @@ http://www.famfamfam.com/lab/icons/flags/
 
 Barrel:
 https://angular.io/docs/ts/latest/glossary.html#!#B
+
+How to test services:
+https://semaphoreci.com/community/tutorials/testing-services-in-angular-2
