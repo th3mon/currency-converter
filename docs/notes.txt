@@ -4,3 +4,6 @@ http://api.nbp.pl/api/exchangerates/rates/C/USD?format=json
 
 Flags:
 http://www.famfamfam.com/lab/icons/flags/
+
+Barrel:
+https://angular.io/docs/ts/latest/glossary.html#!#B
