@@ -8,9 +8,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class RatesService {
-  private _serviceUrl: string = '//api.nbp.pl/api/exchangerates/rates/C/';
-  private _serviceTablesUrl: string = '//api.nbp.pl/api/exchangerates/tables/C/';
-  private _jsonFormatParametr: string = '?format=json';
+  private _url: string = '//api.nbp.pl/api/exchangerates/tables/C/?format=json';
   // TODO: Make enum for translates
   private _translate: any = {
     USD: 'US Dollar',
@@ -21,30 +19,12 @@ export class RatesService {
 
   constructor(private _http: Http) {}
 
-  getRate(currencyCode: string): Observable<any> {
-    let url = `${location.protocol}${this._serviceUrl}${currencyCode}${this._jsonFormatParametr}`;
-
-    return this._http.get(url)
-      .map((response: Response) => {
-        // TODO: Make interface Rate
-        let r: any = response.json();
-
-        return <any> {
-          value: r.rates[0].bid,
-          code: r.code,
-          label: r.currency
-        };
-      })
-      .catch(this.handleError);
-  }
-
   getRates(): Observable<any> {
     let
-      url = `${this._serviceTablesUrl}${this._jsonFormatParametr}`,
       currenciesOfInterest: Array<string> = Object.keys(this._translate),
       regCurrenciesOfInterest: RegExp = new RegExp(currenciesOfInterest.join('|'));
 
-    return this._http.get(url)
+    return this._http.get(this._url)
       .map((response: Response) => {
         let
           data = <any> response.json()[0],
