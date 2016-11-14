@@ -46,22 +46,28 @@ export class RatesService {
 
     return this._http.get(url)
       .map((response: Response) => {
-        let rates: any = <any> response.json()[0].rates
-          .filter((rate: any) => regCurrenciesOfInterest.test(rate.code))
-          .map((rate: any) => {
-            // TODO: Make interface Rate
-            return <any> {
-              value: rate.bid,
-              code: rate.code,
-              label: this._translate[rate.code]
-            };
-          });
+        let
+          data = <any> response.json()[0],
+          rates: any;
 
-        rates.push({
-          value: 1,
-          code: 'PLN',
-          label: this._translate.PLN
-        });
+        if (data) {
+          rates = data.rates
+            .filter((rate: any) => regCurrenciesOfInterest.test(rate.code))
+            .map((rate: any) => {
+              // TODO: Make interface Rate
+              return <any> {
+                value: rate.bid,
+                code: rate.code,
+                label: this._translate[rate.code]
+              };
+            });
+
+          rates.push({
+            value: 1,
+            code: 'PLN',
+            label: this._translate.PLN
+          });
+        }
 
         return rates;
       })
